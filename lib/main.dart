@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:house_of_tomorrow/src/service/theme_service.dart';
+import 'package:house_of_tomorrow/src/view/shopping/shopping_view.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => ThemeService(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -9,13 +16,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text("Hello House Of Tomorrow"),
-        ),
-      ),
+      theme:context.themeService.themeData,//context watch로 접근하는것은 const 붙일 수 없음
+      home: ShoppingView()
     );
   }
 }
